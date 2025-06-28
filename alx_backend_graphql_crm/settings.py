@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'graphene_django',  # Add graphene_django to installed apps
     'crm',  # Your CRM app
+    'django_filters', # Optional: for filtering in GraphQL queries
 ]
 
 MIDDLEWARE = [
