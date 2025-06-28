@@ -6,17 +6,20 @@ from graphql import GraphQLError
 from django.utils import timezone
 from graphene_django.filter import DjangoFilterConnectionField
 from .filters import CustomerFilter, ProductFilter, OrderFilter
+from .t
 import re
 
 # Define GraphQL types for your models
 class CustomerType(DjangoObjectType):
     class Meta:
         model = Customer
+        interfaces = (graphene.relay.Node,)
         fields = "__all__"
 
 class ProductType(DjangoObjectType):
     class Meta:
         model = Product
+        interfaces = (graphene.relay.Node,)
         fields = "__all__"
 
 class OrderType(DjangoObjectType):
@@ -25,6 +28,7 @@ class OrderType(DjangoObjectType):
 
     class Meta:
         model = Order
+        interfaces = (graphene.relay.Node,)
         fields = "__all__"
 
     def resolve_products(self, info):
