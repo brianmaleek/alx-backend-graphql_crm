@@ -4,6 +4,8 @@ from .models import Customer, Product, Order
 from decimal import Decimal
 from graphql import GraphQLError
 from django.utils import timezone
+from graphene_django.filter import DjangoFilterConnectionField
+from .filters import CustomerFilter, ProductFilter, OrderFilter
 import re
 
 # Define GraphQL types for your models
@@ -190,9 +192,9 @@ class Query(graphene.ObjectType):
         - all_products: List of all products.
         - all_orders: List of all orders.
     """
-    all_customers = graphene.List(CustomerType)
-    all_products = graphene.List(ProductType)
-    all_orders = graphene.List(OrderType)
+    all_customers = DjangoFilterConnectionField(CustomerType, filterset_class=CustomerFilter)
+    all_products = DjangoFilterConnectionField(ProductType, filterset_class=ProductFilter)
+    all_orders = DjangoFilterConnectionField(OrderType, filterset_class=OrderFilter)
 
     def resolve_all_customers(self, info):
         return Customer.objects.all()
