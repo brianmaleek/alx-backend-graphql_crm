@@ -63,7 +63,7 @@ print(count_before)
 " 2>/dev/null | tail -1)
 
 # Log the result
-echo "[$timestamp] Cleaned inactive customers: $deleted_count" >> "/tmp/customer_cleanup_crontab.txt"
+echo "[$timestamp] Cleaned inactive customers: $deleted_count" >> "/tmp/customer_cleanup_log.txt"
 
 # End of script
 end_timestamp=$(date +"%Y-%m-%d %H:%M:%S")
