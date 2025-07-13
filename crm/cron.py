@@ -9,8 +9,8 @@ from gql.transport.exceptions import TransportError
 # Configuration
 GRAPHQL_URL = os.getenv("GRAPHQL_URL", "http://localhost:8000/graphql")
 LOG_DIR = os.getenv("LOG_DIR", "/tmp")
-HEARTBEAT_LOG = os.path.join(LOG_DIR, "crm_heartbeat_log.txt")
-LOW_STOCK_LOG = os.path.join(LOG_DIR, "low_stock_updates_log.txt")
+HEARTBEAT_LOG = "/tmp/crm_heartbeat_log.txt"
+LOW_STOCK_LOG = "/tmp/low_stock_updates_log.txt"
 
 def create_graphql_client():
     """Create and return a GraphQL client."""
@@ -52,7 +52,7 @@ def log_crm_heartbeat():
         
         return True
         
-    except (TransportError, Exception) as e:
+    except Exception as e:
         try:
             with open(HEARTBEAT_LOG, "a") as log_file:
                 log_file.write(f"{timestamp} GraphQL hello check failed: {str(e)}\n")
@@ -93,7 +93,7 @@ def update_low_stock():
         
         return True
         
-    except (TransportError, Exception) as e:
+    except Exception as e:
         try:
             with open(LOW_STOCK_LOG, "a") as log_file:
                 log_file.write(f"{timestamp} - Low stock update failed: {str(e)}\n")
