@@ -6,7 +6,6 @@ from graphql import GraphQLError
 from django.utils import timezone
 from graphene_django.filter import DjangoFilterConnectionField
 from .filters import CustomerFilter, ProductFilter, OrderFilter
-from .t
 import re
 
 # Define GraphQL types for your models
@@ -208,6 +207,24 @@ class Query(graphene.ObjectType):
 
     def resolve_all_orders(self, info):
         return Order.objects.all()
+
+class UpdateLowStockProducts(graphene.Mutation):
+    updated_products = graphene.List(graphene.String)
+    message = graphene.String()
+
+    def mutate(self, info):
+        products = Product.objects.filter(stock__lt=10)
+        updated_names = []
+
+        for product in products:
+            product.stock += 10
+            product.save()
+            updated_names.append(f"{product.name} (New Stock: {product.stock})")
+
+        return UpdateLowStockProducts(
+            updated_products=updated_names,
+            message="Low-stock products restocked successfully!"
+        )
 
 class Mutation(graphene.ObjectType):
     create_customer = CreateCustomer.Field()
