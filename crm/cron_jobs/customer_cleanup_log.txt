@@ -1,1 +1,1 @@
-0 2 * * 0 /Users/user/ALX_ProDev_BackEnd/alx-backend-graphql_crm/crm/cron_jobs/cleaninactivecustomers.sh."
+0 2 * * 0 "/Users/user/ALX_ProDev_BackEnd/alx-backend-graphql_crm/crm/cron_jobs/cleaninactivecustomers.sh."
