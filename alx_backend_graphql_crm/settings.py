@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'graphene_django',  # Add graphene_django to installed apps
     'crm',  # Your CRM app
     'django_filters', # Optional: for filtering in GraphQL queries
+    'django_crontab',  # Optional: for cron jobs
 ]
 
 MIDDLEWARE = [
